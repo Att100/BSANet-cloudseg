@@ -46,6 +46,8 @@ Segmenting clouds from intensity images is an essential research topic at the in
 <div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Architecture%20of%20BSANet%20and%20BSAM.png" width="700"/></div>
 
 ### SWINySEG-based Pre-training Strategy
+Figure below shows the schematic diagram of our proposed SWINySEG-based pre-training. (a) illustrates the positive and negative sample generation process. (b) indicates the negative samples. (c) is positive samples. (d) represents the modules involved in pre-training.
+
 <div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Schematic%20diagram%20of%20our%20proposed%20SWINySEG-based%20pre-training.png" width="700"/></div>
 
 
@@ -90,5 +92,5 @@ Segmenting clouds from intensity images is an essential research topic at the in
 ```
 
 ### Results
-Figure below shows the schematic diagram of our proposed SWINySEG-based pre-training. (a) illustrates the positive and negative sample generation process. (b) indicates the negative samples. (c) is positive samples. (d) represents the modules involved in pre-training.
+The figure below illustrates the qualitative results of our proposed models. The two leftmost columns show the source images and their corresponding ground truth. The red rectangle indicates the part that can reflect the performance of the model the most. It shows that our BSANet-lite, the lightest version, can accurately capture the overall shape and content of clouds in both night-time and day-time, but the details of the images are not clear and precise enough. As for the results of BSANet, some details such as the boundary and the middle-size patch of the source image can be captured more accurately. In terms of our biggest configuration, BSANet-large, the overall shape and details can both be predicted precisely. For example, in two night-time images, the small patch of cloud in the red square is completely captured compared to our other two networks with smaller model sizes.
 <div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Qualitative%20visualization.png" width="700"/></div>
