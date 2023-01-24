@@ -8,7 +8,7 @@ Please cite the above paper if you intend to use whole/part of the code. This co
 ### Executive summary
 Segmenting clouds from intensity images is an essential research topic at the intersection of atmospheric science and computer vision, which plays a vital role in weather forecasts, environmental monitoring, and climate evolution analysis. The ground-based sky/cloud image segmentation can help to extract the cloud from the original image and analyze the shape or additional features. In this paper, we introduced a novel sky/cloud segmentation network named Bilateral Segregation and Aggregation Network (BSANet) with 16.37 MBytes, which can reduce 70.68% of model size and achieve almost the same performance as the state-of-the-art method shown as the figure below. After the deployment via TensorRT, BSANet-large configuration can achieve 392 fps in FP16 while BSANet-lite can achieve 1390 fps, which all exceed real-time standards. Additionally, we proposed a novel and fast pre-training strategy for sky/cloud segmentation which can improve the accuracy of segmentation when ImageNet pre-training is not available.
 
-<div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Accuracy%20and%20model%20size%20comparison.png" width="700"/></div>
+<div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Accuracy%20and%20model%20size%20comparison.png" width="400"/></div>
 
 ### Code
 * `./models/`: This folder contains BSANet model code.
