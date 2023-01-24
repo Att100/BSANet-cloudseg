@@ -43,7 +43,7 @@ Segmenting clouds from intensity images is an essential research topic at the in
 * `BSANet Architecture.png`: It shows the overall architecture of BSANet and BSAM. (a) illustrate the overall pipeline of BSANet and (b) indicate the detailed design of bilateral segregation and aggregation module (BSAM). The procedure between the output of the model and the segmentation mask has been omitted in this figure.
 
 
-<div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Architecture%20of%20BSANet%20and%20BSAM.png" width="700"/></div>
+<div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Architecture%20of%20BSANet%20and%20BSAM.png" width="650"/></div>
 
 ### SWINySEG-based Pre-training Strategy
 Figure below shows the schematic diagram of our proposed SWINySEG-based pre-training. (a) illustrates the positive and negative sample generation process. (b) indicates the negative samples. (c) is positive samples. (d) represents the modules involved in pre-training.
