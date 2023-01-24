@@ -9,7 +9,7 @@ Please cite the above paper if you intend to use whole/part of the code. This co
 Segmenting clouds from intensity images is an essential research topic at the intersection of atmospheric science and computer vision, which plays a vital role in weather forecasts, environmental monitoring, and climate evolution analysis. The ground-based sky/cloud image segmentation can help to extract the cloud from the original image and analyze the shape or additional features. The early approaches are mainly based on traditional methods and have limited segmentation performance on both day and night instances. After the advent of deep learning, many research projects have been conducted to adopt convolutional neural networks (CNNs) to perform the end-to-end training of an image segmentation model. However, these early CNN-based designs usually utilize a great number of parameters to boost performance, leading to a slow inference speed. In this paper, we introduced a novel sky/cloud segmentation network named Bilateral Segregation and Aggregation Network (BSANet) with 16.37 MBytes, which can reduce 70.68% of model size and achieve almost the same performance as the state-of-the-art method. After the deployment via TensorRT, BSANet-large configuration can achieve 392 fps in FP16 while BSANet-lite can achieve 1390 fps, which all exceed real-time standards. Additionally, we proposed a novel and fast pre-training strategy for sky/cloud segmentation which can improve the accuracy of segmentation when ImageNet pre-training is not available.
 
 ### Code
-* `./models/`: This folder contains UCloudNet model code.
+* `./models/`: This folder contains BSANet model code.
 * `./utils/`: This folder contains three assistant files (dataset, progressbar and metrics)
 * `./weights/`: This folder contains the weights after model training.
 * `notebook.ipynb`: This notebook comtains code block for evaluation.
@@ -38,7 +38,7 @@ Segmenting clouds from intensity images is an essential research topic at the in
 * `./dataset/`: This folder contains the full SWINySEG dataset.
 
 ### Model
-* `UCloudNet Architecture.png`: It shows the architecture overview of proposed UCloudNet. Our UCloudNet is based on the U-Net structure which contains a series of decoders and encoders with channels concatenation in each stage. To compare with the original U-Net structure, we use a hyper-parameter $k$ to control the parameters amount and inspired by K. He et al., we add residual connection in each convolution block in encoder which is helpful for training the deeper layers. As for the training strategy, we use deep supervision to support the training process.
+* `BSANet Architecture.png`: It shows the overall architecture of BSANet and BSAM. (a) illustrate the overall pipeline of BSANet and (b) indicate the detailed design of bilateral segregation and aggregation module (BSAM). The procedure between the output of the model and the segmentation mask has been omitted in this figure.
 
 
 ### Training
