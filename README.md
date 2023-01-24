@@ -45,9 +45,10 @@ Segmenting clouds from intensity images is an essential research topic at the in
 
 <div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Architecture%20of%20BSANet%20and%20BSAM.png" width="700"/></div>
 
+### SWINySEG-based Pre-training Strategy
 <div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Schematic%20diagram%20of%20our%20proposed%20SWINySEG-based%20pre-training.png" width="700"/></div>
 
-<div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Qualitative%20visualization.png" width="700"/></div>
+
 
 ### Training
 
@@ -89,5 +90,5 @@ Segmenting clouds from intensity images is an essential research topic at the in
 ```
 
 ### Results
-
-
+Figure below shows the schematic diagram of our proposed SWINySEG-based pre-training. (a) illustrates the positive and negative sample generation process. (b) indicates the negative samples. (c) is positive samples. (d) represents the modules involved in pre-training.
+<div align=center><img src="https://github.com/Att100/BSANet-cloudseg/blob/main/figures/Qualitative%20visualization.png" width="700"/></div>
