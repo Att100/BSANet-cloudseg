@@ -76,7 +76,7 @@ class BSAM(nn.Layer):
         seg = self.classifier(self.dp(out))
         return out, seg
 
-class BSACloudNet(nn.Layer):
+class BSANet(nn.Layer):
     def __init__(self, pretrained=True, mode='train'):
         super().__init__()
 

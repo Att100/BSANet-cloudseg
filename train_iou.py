@@ -37,26 +37,22 @@ def train(args):
     paddle.seed(999)
 
     aug = True
-    if args.model_tag == "bsacloudnet-lite":
-        from models.bsacloudnet_lite import BSACloudNet
+    if args.model_tag == "bsanet-lite":
+        from models.bsanet_lite import BSANet
         assert os.path.exists("./pretrained/mobilenetv2_lite_swinyseg_pretr.pdparams")
-        model = BSACloudNet("./pretrained/mobilenetv2_lite_swinyseg_pretr.pdparams")
+        model = BSANet("./pretrained/mobilenetv2_lite_swinyseg_pretr.pdparams")
         aug = False
-    elif args.model_tag == "bsacloudnet-lite-pure":
-        from models.bsacloudnet_lite import BSACloudNet
-        model = BSACloudNet(None)
+    elif args.model_tag == "bsanet-lite-pure":
+        from models.bsanet_lite import BSANet
+        model = BSANet(None)
         aug = False
-    elif args.model_tag == "bsacloudnet":
-        from models.bsacloudnet import BSACloudNet
-        model = BSACloudNet(True)
-    elif args.model_tag == "baseline-large":
-        from models.e_baseline_large import BSACloudNet
+    elif args.model_tag == "bsanet":
+        from models.bsanet import BSANet
+        model = BSANet(True)
+    elif args.model_tag == "bsanet-large":
+        from models.bsanet_large import BSANet
         assert os.path.exists("./pretrained/efficientnet-b0-355c32eb.pdparams")
-        model = BSACloudNet(True) 
-    elif args.model_tag == "bsacloudnet-large":
-        from models.bsacloudnet_large import BSACloudNet
-        assert os.path.exists("./pretrained/efficientnet-b0-355c32eb.pdparams")
-        model = BSACloudNet(True) 
+        model = BSANet(True) 
     else:
         raise Exception("Model name {} not found".format(args.model_tag))
 
@@ -147,8 +143,8 @@ def train(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--model_tag', type=str, default='bsacloudnet_lite', 
-        help="the tag of model (default: bsacloudnet_lite)")
+        '--model_tag', type=str, default='bsanet_lite', 
+        help="the tag of model (default: bsanet_lite)")
     parser.add_argument(
         '--batch_size', type=int, default=16, 
         help="batchsize for model training (default: 16)")

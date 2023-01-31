@@ -2,8 +2,9 @@ import paddle
 import paddle.nn as nn
 import paddle.nn.functional as F
 
-from paddle.vision.models.mobilenetv2 import InvertedResidual
-from .efficientnet import EfficientNetB0
+from .mobilenet_v2_lite import InvertedResidual
+from .mobilenet_v2_lite import MobileNetV2
+
 
 
 class ConvBnReLU(nn.Layer):
@@ -75,41 +76,40 @@ class BSAM(nn.Layer):
         seg = self.classifier(out)
         return out, seg
 
-class BSACloudNet(nn.Layer):
-    def __init__(self, pretrained=True, pretrain_path=None, mode='train'):
+class BSANet(nn.Layer):
+    def __init__(self, pretrain_path=None, mode='train'):
         super().__init__()
 
         self.mode = mode
 
         # encoder/backbone
-        self.efficientnet_b0 = EfficientNetB0(pretrained=pretrained)
-        if pretrained and pretrain_path is not None:
-            self.efficientnet_b0.set_state_dict(paddle.load(pretrain_path))
-        
+        self.mobilenet_v2 = MobileNetV2()
+        if pretrain_path is not None:
+            self.mobilenet_v2.features.set_state_dict(paddle.load(pretrain_path))
 
         # conv 1x1
-        self.conv4 = ConvBnReLU(112, 1280, 1)
-        # self.conv3 = ConvBnReLU(32, 64, 1)
-        # self.conv2 = ConvBnReLU(24, 32, 1)
-        # self.conv1 = ConvBnReLU(32, 24, 1)
+        self.conv4 = ConvBnReLU(16, 128, 1)
+        self.conv3 = ConvBnReLU(8, 16, 1)
+        self.conv2 = ConvBnReLU(8, 8, 1)
+        self.conv1 = ConvBnReLU(8, 8, 1)
 
         # decoder
         self.dec1 = nn.Sequential(
-            DoubleConv2D(1280, 40),
-            Up(40, 40))
-        self.dec1_cls = nn.Conv2D(40, 1, 3, 1, 1)
-        self.dec2 = BSAM(40, 24)
-        self.dec3 = BSAM(24, 32)
-        self.dec4 = BSAM(32, 32)
+            DoubleConv2D(128, 16),
+            Up(16, 16))
+        self.dec1_cls = nn.Conv2D(16, 1, 3, 1, 1)
+        self.dec2 = BSAM(16, 8)
+        self.dec3 = BSAM(8, 8)
+        self.dec4 = BSAM(8, 8)
 
     def forward(self, x):
         # encode
-        feat1, feat2, feat3, feat4, output = self.efficientnet_b0(x)
+        feat1, feat2, feat3, feat4, output = self.mobilenet_v2(x)
 
         feat4 = self.conv4(feat4)
-        # feat3 = self.conv3(feat3)
-        # feat2 = self.conv2(feat2)
-        # feat1 = self.conv1(feat1)
+        feat3 = self.conv3(feat3)
+        feat2 = self.conv2(feat2)
+        feat1 = self.conv1(feat1)
 
         #decode
         x2 = self.dec1(output + feat4)
@@ -121,3 +121,5 @@ class BSACloudNet(nn.Layer):
         if self.mode == 'train':
             return out, x8_out, x4_out, x2_out
         return out
+
+

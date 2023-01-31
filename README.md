@@ -36,6 +36,17 @@ Segmenting clouds from intensity images is an essential research topic at the in
         └─images
     ```
 
+- TensorRT (optional), if you want to try the TensorRT optimized version, please follow the scripts below to install dependencies
+
+    ```
+    python3 -m pip install --upgrade setuptools pip
+    python3 -m pip install nvidia-pyindex
+    pip install numpy==1.20.3
+    python3 -m pip install --upgrade nvidia-tensorrt==8.2.0.6
+    pip install pycuda
+    pip install paddle2onnx
+    ```
+
 ### Data
 * `./dataset/`: This folder contains the full SWINySEG dataset.
 
@@ -54,41 +65,62 @@ Figure below shows the schematic diagram of our proposed SWINySEG-based pre-trai
 
 ### Training
 
-- help
+- generate SWINySEG-based pretrain dataset
 
     ```
-    python train.py -h
-
-    usage: train.py [-h] [--model_tag MODEL_TAG] [--k K] [--batch_size BATCH_SIZE] [--lr LR] [--lr_decay LR_DECAY] [--aux AUX] [--epochs EPOCHS]
-                    [--dataset_split DATASET_SPLIT] [--dataset_path DATASET_PATH] [--eval_interval EVAL_INTERVAL]
-
-    optional arguments:
-    -h, --help            show this help message and exit
-    --model_tag MODEL_TAG
-                            the tag of model (default: ucloudnet_k_2_aux_lr_decay)
-    --k K                 the k value of model (default: 2)
-    --batch_size BATCH_SIZE
-                            batchsize for model training (default: 16)
-    --lr LR               the learning rate for training (default: 1e-3)
-    --lr_decay LR_DECAY   enable learning rate decay when training, [1, 0] (default: 1)
-    --aux AUX             enable deep supervision when training, [1, 0] (default: 1)
-    --epochs EPOCHS       number of training epochs (default: 100)
-    --dataset_split DATASET_SPLIT
-                            split of SWINySEG dataset, ['all', 'd', 'n'] (default: all)
-    --dataset_path DATASET_PATH
-                            path of training dataset (default: ./dataset/SWINySEG)
-    --eval_interval EVAL_INTERVAL
-                            interval of model evaluation during training (default: 5)
-
+    python build_pretrained_data.py
     ```
 
-- experiments
+- train models
 
+    ```
+    # for BSANet-lite
+    python train.py --model_tag bsanet-lite
+
+    # for BSANet
+    python train.py --model_tag bsanet
+
+    # for BSANet-large
+    python train.py --model_tag bsanet-large
+
+    # for BSANet-large with IOU loss
+    python train_iou.py --model_tag bsanet-large
+    ```
 
 ### Testing
 
+Evaluation on full SWINySEG test set
+
 ```
-# follow instructions in notebook.ipynb
+# for BSANet-lite
+python test.py --model_tag bsanet-lite
+
+# for BSANet
+python test.py --model_tag bsanet
+
+# for BSANet-large
+python test.py --model_tag bsanet-large
+
+# for BSANet-large with IOU loss
+python test.py --model_tag bsanet-large --iou True
+```
+
+Evaluation on day-time or night-time images
+
+```
+# add '--daynight day' or '--daynight night' after script above
+```
+
+### TensorRT
+
+```
+python dynamic2static.py --model_tag bsanet-lite --ckpt_path ./ckpts/bsanet-lite_epochs_100.pdparam
+paddle2onnx --model_dir ./ckpts/static --model_filename bsanet-lite.pdmodel --params_filename bsanet-lite.pdiparams --save_file ./ckpts/static/bsanet-lite.onnx
+
+# FOR FP32
+python onnx_to_tensorrt.py -m ./ckpts/static/bsanet-lite.onnx -d fp32
+# FOR FP16
+python onnx_to_tensorrt.py -m ./ckpts/static/bsanet-lite.onnx -d fp16
 ```
 
 ### Results

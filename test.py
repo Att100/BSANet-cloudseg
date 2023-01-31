@@ -7,8 +7,8 @@ from utils.metric import get_metrics
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--model_tag', type=str, default='bsacloudnet_lite', 
-        help="the tag of model (default: bsacloudnet_lite)")
+        '--model_tag', type=str, default='bsanet_lite', 
+        help="the tag of model (default: bsanet_lite)")
     parser.add_argument(
         '--iou', type=bool, default=False, 
         help="evaluate iou version (default: False)")
@@ -20,36 +20,36 @@ if __name__ == "__main__":
         help="day/night/all (default: all)")
     args = parser.parse_args()
 
-    if args.model_tag == "bsacloudnet-lite":
+    if args.model_tag == "bsanet-lite":
         assert not args.iou, "Currently not supported for lite version"
-        from models.bsacloudnet_lite import BSACloudNet
+        from models.bsanet_lite import BSANet
         accuracy, precision, recall, f_measure, error_rate, miou = get_metrics(
-            BSACloudNet(), 
-            "./ckpts/bsacloudnet-lite_epochs_100.pdparam",
+            BSANet(), 
+            "./ckpts/bsanet-lite_epochs_100.pdparam",
             args.dataset_path, args.daynight)
-        print("----- BSACloudNet-lite -----")
-    elif args.model_tag == "bsacloudnet-lite-pure":
+        print("----- Bsanet-lite -----")
+    elif args.model_tag == "bsanet-lite-pure":
         assert not args.iou, "Currently not supported for lite version"
-        from models.bsacloudnet_lite import BSACloudNet
+        from models.bsanet_lite import BSANet
         accuracy, precision, recall, f_measure, error_rate, miou = get_metrics(
-            BSACloudNet(), 
-            "./ckpts/bsacloudnet-lite-pure_epochs_100.pdparam",
+            BSANet(), 
+            "./ckpts/bsanet-lite-pure_epochs_100.pdparam",
             args.dataset_path, args.daynight)
-        print("----- BSACloudNet-lite-pure -----")
-    elif args.model_tag == "bsacloudnet":
-        from models.bsacloudnet import BSACloudNet
+        print("----- BSANet-lite-pure -----")
+    elif args.model_tag == "bsanet":
+        from models.bsanet import BSANet
         accuracy, precision, recall, f_measure, error_rate, miou = get_metrics(
-            BSACloudNet(), 
-            "./ckpts/bsacloudnet{}_epochs_100.pdparam".format("-iou" if args.iou else ""),
+            BSANet(), 
+            "./ckpts/bsanet{}_epochs_100.pdparam".format("-iou" if args.iou else ""),
             args.dataset_path, args.daynight)
-        print("----- BSACloudNet -----")
-    elif args.model_tag == "bsacloudnet-large":
-        from models.bsacloudnet_large import BSACloudNet
+        print("----- BSANet -----")
+    elif args.model_tag == "bsanet-large":
+        from models.bsanet_large import BSANet
         accuracy, precision, recall, f_measure, error_rate, miou = get_metrics(
-            BSACloudNet(), 
-            "./ckpts/bsacloudnet-large{}_epochs_100.pdparam".format("-iou" if args.iou else ""),
+            BSANet(), 
+            "./ckpts/bsanet-large{}_epochs_100.pdparam".format("-iou" if args.iou else ""),
             args.dataset_path, args.daynight)
-        print("----- BSACloudNet-large -----")
+        print("----- BSANet-large -----")
     else:
         raise Exception("Model name {} not found".format(args.model_tag))
 
