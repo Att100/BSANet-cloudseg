@@ -1,7 +1,7 @@
 ## BSANet for Real-time Cloud Segmentation
 With the spirit of reproducible research, this repository contains all the codes required to produce the results in the manuscript: 
 
-> Y. Li, H. Wang, S. Wang, Y. H. Lee, S. Dev. “BSANet: A Bilateral Segregation and Aggregation Network for Real-time Sky/Cloud Segmentation”, IEEE Transactions on Geoscience and Remote Sensing, under review
+> Y. Li, H. Wang, S. Wang, Y. H. Lee, S. Dev. “BSANet: A Bilateral Segregation and Aggregation Network for Real-time Sky/Cloud Segmentation”, under review
 
 Please cite the above paper if you intend to use whole/part of the code. This code is only for academic and research purposes.
 
