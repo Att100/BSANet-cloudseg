@@ -36,6 +36,7 @@ Segmenting clouds from intensity images is an essential research topic at the in
         └─images
     ```
 - MobileNet V2 lite backbone pretrained on SWINySEG (optional)
+
   Please download the checkpoint from [Google Drive](https://drive.google.com/file/d/1b7L2pyxfhyTzUfKg_9s_3JnGu30OEJCz/view?usp=sharing)
 
 - TensorRT (optional), if you want to try the TensorRT optimized version, please follow the scripts below to install dependencies
